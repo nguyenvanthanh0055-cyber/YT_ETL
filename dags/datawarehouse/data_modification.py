@@ -19,7 +19,7 @@ def insert_data(cur, conn, schema, row):
             
             cur.execute(f"""
                         INSERT INTO {schema}.{table} ("Video_ID", "Video_Title", "Upload_Date", "Duration", "Video_Type" ,"Video_Views", "Like_Count", "Comments_Count")
-                        VALUES(%(video_id)s, %(title)s, %(publishedAt)s, %(duration)s, %(Video_Type)s,%(viewCount)s, %(likeCount)s, %(commentCount)s)
+                        VALUES (%(Video_ID)s, %(Video_Title)s, %(Upload_Date)s, %(Duration)s, %(Video_Type)s, %(Video_Views)s, %(Like_Count)s, %(Comments_Count)s)
                         """, row
                         )
         
@@ -37,23 +37,23 @@ def update_data(cur, conn, schema, row):
             upload_date = "publishedAt"
             video_title = 'title'
             video_views = 'viewCount'
-            likes_count = 'likeCount'
+            like_count = 'likeCount'
             comments_count = "commentCount"
         else:
             video_id = "Video_ID"
             upload_date = "Upload_Date"
             video_title = 'Video_Title'
             video_views = 'Video_Views'
-            likes_count = 'Likes_Count'
+            like_count = 'Like_Count'
             comments_count = "Comments_Count"
             
         cur.execute(
             f"""
             UPDATE {schema}.{table} 
-            SET "Video_Title = %({video_title})s,
-                "Video_Views = %({video_views})s,
-                "Likes_Count = %({likes_count})s,
-                "Comments_Count = %({comments_count})s
+            SET "Video_Title" = %({video_title})s,
+                "Video_Views" = %({video_views})s,
+                "Like_Count" = %({like_count})s,
+                "Comments_Count" = %({comments_count})s
             WHERE "Video_ID" = %({video_id})s AND "Upload_Date" = %({upload_date})s
             """, row
         )
